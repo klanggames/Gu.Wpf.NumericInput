@@ -61,6 +61,7 @@
     <Compile Include="Boxes\BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
     <Compile Include="Boxes\BaseBoxes\NumericBox{T}.Events.cs" />
     <Compile Include="Boxes\BaseBoxes\Status.cs" />
+    <Compile Include="Boxes\UIntBox.cs" />
     <Compile Include="Boxes\SpinUpdateMode.cs" />
     <Compile Include="Boxes\TextSource.cs" />
     <Compile Include="Boxes\ValidationTrigger.cs" />

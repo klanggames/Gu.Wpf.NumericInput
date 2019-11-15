@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Gu.Wpf.NumericInput">
     <ResourceDictionary.MergedDictionaries>
@@ -37,6 +37,9 @@
 
     <!--  IntBox  -->
     <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:IntBox}" />
+
+    <!--  IntBox  -->
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:UIntBox}" />
 
     <!--  ShortBox  -->
     <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:ShortBox}" />
