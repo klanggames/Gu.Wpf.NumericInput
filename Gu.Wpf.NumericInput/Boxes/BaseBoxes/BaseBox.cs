@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Windows;
@@ -11,14 +11,25 @@
     /// </summary>
     public abstract partial class BaseBox : TextBox
     {
-        private static readonly RoutedEventHandler LoadedHandler = OnLoaded;
+        private static RoutedEventHandler LoadedHandler;
+        private static RoutedEventHandler UnloadedHandler;
+        private static int instanceCount = 0;
 
         // this is only used to create the binding expression needed for Validator
-        private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
+        private static readonly Binding ValidationBinding = new Binding {Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true};
 
         protected BaseBox()
         {
+            if (instanceCount == 0)
+            {
+                LoadedHandler = OnLoaded;
+                UnloadedHandler = OnUnloaded;
+            }
+
+            instanceCount++;
+
             this.AddHandler(LoadedEvent, LoadedHandler);
+            this.AddHandler(UnloadedEvent, UnloadedHandler);
             this.TextBindingExpression = (BindingExpression)BindingOperations.SetBinding(this, NumericBox.TextProperty, ValidationBinding);
             this.FormattedView = new FormattedView(this);
         }
@@ -97,6 +108,18 @@
         {
             var box = (BaseBox)sender;
             box.OnLoaded();
+        }
+
+        private static void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            --instanceCount;
+            if (instanceCount != 0)
+            {
+                return;
+            }
+
+            LoadedHandler = null;
+            UnloadedHandler = null;
         }
     }
 }
